@@ -102,3 +102,9 @@ ENV/
 
 # idea
 .idea/
+
+# .vscode
+.vscode/
+backend/db.sqlite3
+node_modules/
+
