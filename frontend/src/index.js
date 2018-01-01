@@ -1,7 +1,12 @@
 import React from 'react';
+import {Link, BrowserRouter as Router} from 'react-router-dom'
 import ReactDOM from 'react-dom';
-require('./app.css');
+import App from './containers/App';
+require('./app.less');
 
 ReactDOM.render(
-    "Hello",document.getElementById('app'));
+    <Router>
+        <App/>
+    </Router>
+    , document.getElementById('app'));
 
