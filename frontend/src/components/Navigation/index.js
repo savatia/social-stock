@@ -2,6 +2,7 @@ import {Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, But
 import React from 'react';
 import Sidebar from '../Sidebar';
 import SidebarDropdown from '../SidebarDropdown';
+import {LinkContainer} from 'react-router-bootstrap';
 
 
 const Navigation = ({}) => (
@@ -12,21 +13,6 @@ const Navigation = ({}) => (
             </Navbar.Brand>
             <Navbar.Toggle />
         </Navbar.Header>
-        {/*<Nav>*/}
-        {/*<NavItem eventKey={1} href="#">Link</NavItem>*/}
-        {/*<NavItem eventKey={2} href="#">Link</NavItem>*/}
-
-        {/*</Nav>*/}
-        {/*<Nav pullRight>*/}
-        {/*<NavItem eventKey={2} href="#">Link Right</NavItem>*/}
-        {/*<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">*/}
-        {/*<MenuItem eventKey={3.1}>Action</MenuItem>*/}
-        {/*<MenuItem eventKey={3.2}>Another action</MenuItem>*/}
-        {/*<MenuItem eventKey={3.3}>Something else here</MenuItem>*/}
-        {/*<MenuItem divider/>*/}
-        {/*<MenuItem eventKey={3.3}>Separated link</MenuItem>*/}
-        {/*</NavDropdown>*/}
-        {/*</Nav>*/}
         <div className="collapse nav navbar-collapse navbar-nav" id="navbarSupportedContent">
             <NavItem eventKey={1} href="#">Link</NavItem>
             <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
@@ -39,8 +25,13 @@ const Navigation = ({}) => (
         </div>
         <Navbar.Collapse>
             <Sidebar>
-                <NavItem eventKey={1} href="#">Side Link</NavItem>
-                <NavItem eventKey={2} href="#">Side Link</NavItem>
+                <LinkContainer to="/">
+                    <NavItem eventKey={1}>Home</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/stocks">
+                    <NavItem eventKey={2}>Stocks</NavItem>
+                </LinkContainer>
+
                 <SidebarDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
                     <MenuItem eventKey={3.1}>Action</MenuItem>
                     <MenuItem eventKey={3.2}>Another action</MenuItem>
@@ -48,7 +39,7 @@ const Navigation = ({}) => (
                     <MenuItem divider/>
                     <MenuItem eventKey={3.3}>Separated link</MenuItem>
                 </SidebarDropdown>
-                 <NavItem eventKey={2} href="#">Side Link</NavItem>
+                <NavItem eventKey={2} href="#">Side Link</NavItem>
             </Sidebar>
         </Navbar.Collapse>
     </Navbar>

@@ -22,6 +22,11 @@ module.exports = {
         }),
     ],
     devtool: "#eval-source-map",
+    devServer: {
+        historyApiFallback: {
+            index: 'index.html'
+        }
+    },
     module: {
         loaders: [{
             test: /\.jsx?$/,
