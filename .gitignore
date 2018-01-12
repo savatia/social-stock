@@ -106,5 +106,6 @@ ENV/
 # .vscode
 .vscode/
 backend/db.sqlite3
+backend/my.cnf
 node_modules/
 
