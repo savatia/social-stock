@@ -1,7 +1,6 @@
 import graphene
-from api.schema import Query as ApiQuery
+from api.schema import Query
 
-class Query(ApiQuery, graphene.ObjectType):
-    pass
 
-schema = graphene.Schema(query=Query)
+# https://github.com/graphql-python/graphene/issues/478#issuecomment-305947413
+schema = graphene.Schema(query=Query, types=[Query])

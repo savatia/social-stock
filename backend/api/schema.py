@@ -1,5 +1,8 @@
+from importlib import import_module
+
 import graphene
 from graphene import relay
+from graphene.types import ObjectType
 from graphene_django.types import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 
@@ -25,8 +28,7 @@ class CompanyNode(DjangoObjectType):
 		}
 		interfaces = (relay.Node,)
 
-
-class Query(object):
+class Viewer(graphene.ObjectType):
 	company = relay.Node.Field(CompanyNode)
 	companies = DjangoFilterConnectionField(CompanyNode)
 
@@ -38,3 +40,11 @@ class Query(object):
 
 	def resolve_sub_sectors(self, info, **kwargs):
 		return SubSector.objects.all()
+
+class Query(Viewer):
+	viewer = graphene.Field(Viewer)
+
+	def resolve_viewer(self,info, **kwargs):
+		return  Viewer()
+
+

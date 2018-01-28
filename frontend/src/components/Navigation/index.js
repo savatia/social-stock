@@ -2,47 +2,69 @@ import {Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, But
 import React from 'react';
 import Sidebar from '../Sidebar';
 import SidebarDropdown from '../SidebarDropdown';
+import CompanySidebarItem from '../../containers/CompanySideBarItem';
 import {LinkContainer} from 'react-router-bootstrap';
 
+import {
+    createFragmentContainer,
+    graphql
+} from 'react-relay';
 
-const Navigation = ({}) => (
-    <Navbar inverse collapseOnSelect>
-        <Navbar.Header>
-            <Navbar.Brand>
-                <a href="#">React-Bootstrap</a>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-        </Navbar.Header>
-        <div className="collapse nav navbar-collapse navbar-nav" id="navbarSupportedContent">
-            <NavItem eventKey={1} href="#">Link</NavItem>
-            <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-                <MenuItem eventKey={3.1}>Action</MenuItem>
-                <MenuItem eventKey={3.2}>Another action</MenuItem>
-                <MenuItem eventKey={3.3}>Something else here</MenuItem>
-                <MenuItem divider/>
-                <MenuItem eventKey={3.3}>Separated link</MenuItem>
-            </NavDropdown>
-        </div>
-        <Navbar.Collapse>
-            <Sidebar>
-                <LinkContainer to="/">
-                    <NavItem eventKey={1}>Home</NavItem>
-                </LinkContainer>
-                <LinkContainer to="/stocks">
-                    <NavItem eventKey={2}>Stocks</NavItem>
-                </LinkContainer>
+class Navigation extends React.Component {
+    render() {
+        console.log("Navigation");
+        console.log(this.props);
+        return (
+            <Navbar inverse collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <a href="#">React-Bootstrap</a>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <div className="collapse nav navbar-collapse navbar-nav" id="navbarSupportedContent">
+                    <NavItem eventKey={1} href="#">Link</NavItem>
+                    <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
 
-                <SidebarDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-                    <MenuItem eventKey={3.1}>Action</MenuItem>
-                    <MenuItem eventKey={3.2}>Another action</MenuItem>
-                    <MenuItem eventKey={3.3}>Something else here</MenuItem>
-                    <MenuItem divider/>
-                    <MenuItem eventKey={3.3}>Separated link</MenuItem>
-                </SidebarDropdown>
-                <NavItem eventKey={2} href="#">Side Link</NavItem>
-            </Sidebar>
-        </Navbar.Collapse>
-    </Navbar>
-);
+                    </NavDropdown>
+                </div>
+                <Navbar.Collapse>
+                    <Sidebar>
+                        <LinkContainer to="/">
+                            <NavItem eventKey={1}>Home</NavItem>
+                        </LinkContainer>
+                        <LinkContainer to="/stocks">
+                            <NavItem eventKey={2}>Stocks</NavItem>
+                        </LinkContainer>
 
-export default Navigation;
+                        <SidebarDropdown eventKey={3} title="Companies" id="basic-nav-dropdown">
+                            {
+                                this.props.companies.companies.edges.map((node) => (
+                                    <CompanySidebarItem key={node.cursor} company={node.node}/>
+                                ))
+                            }
+                        </SidebarDropdown>
+                        <NavItem eventKey={2} href="#">Side Link</NavItem>
+                    </Sidebar>
+                </Navbar.Collapse>
+            </Navbar>
+        );
+    }
+}
+
+export default createFragmentContainer(Navigation, graphql`
+    fragment Navigation_companies on Viewer {
+        companies(last: 10) {
+            edges{
+                node{
+                 ...CompanySideBarItem_company
+                } 
+                cursor
+            }
+            pageInfo{
+                hasPreviousPage
+                startCursor
+            }
+        }
+    }
+`);

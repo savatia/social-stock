@@ -13,6 +13,7 @@ export default [
         main: () => <h2>Bubblegum</h2>,
         name: 'Stocks',
     },
+
     {
         path: '*',
         name: 'Page Not Found'

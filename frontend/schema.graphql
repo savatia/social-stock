@@ -1,0 +1,85 @@
+type CompanyNode implements Node {
+  # The ID of the object.
+  id: ID!
+  name: String!
+  symbol: String!
+  marketCap: Int
+  country: String
+  year: Int
+  subSector: SubSectorNode!
+}
+
+type CompanyNodeConnection {
+  pageInfo: PageInfo!
+  edges: [CompanyNodeEdge]!
+}
+
+type CompanyNodeEdge {
+  # The item at the end of the edge
+  node: CompanyNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# An object with an ID
+interface Node {
+  # The ID of the object.
+  id: ID!
+}
+
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Query {
+  # The ID of the object
+  company(id: ID!): CompanyNode
+  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String): CompanyNodeConnection
+
+  # The ID of the object
+  subSector(id: ID!): SubSectorNode
+  subSectors(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String): SubSectorNodeConnection
+  viewer: Viewer
+}
+
+type SubSectorNode implements Node {
+  # The ID of the object.
+  id: ID!
+  name: String!
+  companySet(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String): CompanyNodeConnection
+}
+
+type SubSectorNodeConnection {
+  pageInfo: PageInfo!
+  edges: [SubSectorNodeEdge]!
+}
+
+type SubSectorNodeEdge {
+  # The item at the end of the edge
+  node: SubSectorNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type Viewer {
+  # The ID of the object
+  company(id: ID!): CompanyNode
+  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String): CompanyNodeConnection
+
+  # The ID of the object
+  subSector(id: ID!): SubSectorNode
+  subSectors(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String): SubSectorNodeConnection
+}
+
