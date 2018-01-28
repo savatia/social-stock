@@ -108,4 +108,4 @@ ENV/
 backend/db.sqlite3
 backend/my.cnf
 node_modules/
-
+__generated__
