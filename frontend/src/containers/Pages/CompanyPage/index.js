@@ -1,10 +1,13 @@
-import React from 'react';
+import React from 'react'
+import {Panel} from 'react-bootstrap'
 
-class CompanyPage extends React.Component{
-    render(){
-        return(<div>
+class CompanyPage extends React.Component {
+    render() {
+        return (
             <h1>{this.props.match.params.id}</h1>
-            </div>
+            // <Panel>
+            //     <Panel.Body></Panel.Body>
+            // </Panel>
         )
     }
 }

@@ -12,11 +12,6 @@ import {
 } from 'react-relay'
 import environment from '../../Environment.js';
 
-    // query AppAllQuery {
-    //         viewer{
-    //             ...Navigation_companies   @relay(mask: false)
-    //          }
-    // }
 const AppAllQuery = graphql`
     query AppAllQuery {
         viewer{ 
@@ -37,12 +32,9 @@ class App extends React.Component {
                         return <div>{error.message}</div>
                     }
                     else if (props) {
-
-                        console.log( props);
-                        {/*console.log( environment);*/}
                         return [
-                            <Navigation companies={props.viewer}/>,
-                            <ContentWrapper/>,
+                            <Navigation key="1" companies={props.viewer}/>,
+                            <ContentWrapper key="2"/>,
                         ]
                     }
                     return <div>Loading</div>

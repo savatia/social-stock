@@ -11,7 +11,6 @@ import {
 
 class CompanySideBarItem extends React.Component{
     render(){
-        console.log("CompanySideBarItem")
         return (
             <LinkContainer to={`/company/${this.props.company.symbol}`}>
                  <MenuItem>{ this.props.company.name }</MenuItem>

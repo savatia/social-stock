@@ -1,32 +1,21 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var CompressionPlugin = require("compression-webpack-plugin");
 var webpack = require('webpack');
 
 module.exports = {
     entry: "./src/index.js",
     output: {
-        path: __dirname + '/build',
-        filename: "main.js"
+        path: path.join(path.dirname(__dirname), '/dist'),
+        filename: "main.js",
+        publicPath: 'static/',
     },
     plugins: [
+        new HtmlWebpackPlugin({
+            template: 'index.html'
+        }),
         new ExtractTextPlugin('[name].css'),
-        new CompressionPlugin({
-            asset: "[path].gz[query]",
-            algorithm: "gzip",
-            test: /\.(js|html)$/,
-            threshold: 10240,
-            minRatio: 0.8
-        }),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"'
-        }),
     ],
-    devtool: "#eval-source-map",
-    devServer: {
-        historyApiFallback: {
-            index: 'index.html'
-        }
-    },
     module: {
         loaders: [{
             test: /\.jsx?$/,
@@ -50,4 +39,4 @@ module.exports = {
             }
         ]
     }
-};
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import CompanyPage from '../containers/Pages/CompanyPage'
 export default [
     {
         path: '/',

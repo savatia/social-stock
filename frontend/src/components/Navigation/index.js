@@ -12,8 +12,6 @@ import {
 
 class Navigation extends React.Component {
     render() {
-        console.log("Navigation");
-        console.log(this.props);
         return (
             <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
