@@ -28,8 +28,9 @@ class CompanyNode(DjangoObjectType):
 		}
 		interfaces = (relay.Node,)
 
+
 class Viewer(graphene.ObjectType):
-	company = relay.Node.Field(CompanyNode)
+	company = graphene.Field(CompanyNode, id=graphene.Int(), symbol=graphene.String())
 	companies = DjangoFilterConnectionField(CompanyNode)
 
 	sub_sector = relay.Node.Field(SubSectorNode)
@@ -41,10 +42,21 @@ class Viewer(graphene.ObjectType):
 	def resolve_sub_sectors(self, info, **kwargs):
 		return SubSector.objects.all()
 
+	def resolve_company(self, info, **kwargs):
+		id = kwargs.get('id')
+		symbol = kwargs.get('symbol')
+
+		if id is not None:
+			return Company.objects.get(pk=id)
+
+		if symbol is not None:
+			return Company.objects.get(symbol=symbol)
+
+		return None
+
+
+
 class Query(Viewer):
 	viewer = graphene.Field(Viewer)
-
-	def resolve_viewer(self,info, **kwargs):
-		return  Viewer()
-
-
+	def resolve_viewer(self, info, **kwargs):
+		return Query()

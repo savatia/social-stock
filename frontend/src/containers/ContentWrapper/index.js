@@ -5,6 +5,10 @@ import {
     Link
 } from 'react-router-dom'
 import routes from '../../routes/routes';
+import {
+    createFragmentContainer,
+    graphql
+} from 'react-relay';
 
 const ContentWrapper = () => (
     <div className="content-wrapper container-fluid">

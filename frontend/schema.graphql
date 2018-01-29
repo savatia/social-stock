@@ -43,8 +43,7 @@ type PageInfo {
 }
 
 type Query {
-  # The ID of the object
-  company(id: ID!): CompanyNode
+  company(id: Int, symbol: String): CompanyNode
   companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String): CompanyNodeConnection
 
   # The ID of the object
@@ -74,8 +73,7 @@ type SubSectorNodeEdge {
 }
 
 type Viewer {
-  # The ID of the object
-  company(id: ID!): CompanyNode
+  company(id: Int, symbol: String): CompanyNode
   companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String): CompanyNodeConnection
 
   # The ID of the object

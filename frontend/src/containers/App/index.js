@@ -1,10 +1,9 @@
 import React from 'react';
-import ContentWrapper from '../../components/ContentWrapper';
+import ContentWrapper from '../ContentWrapper';
 import Navigation from '../../components/Navigation';
 import Sidebar from '../../components/Sidebar';
 import CompanyList from '../CompanyList';
 import CompanySideBarItem from '../CompanySideBarItem';
-
 
 import {
     QueryRenderer,
@@ -24,9 +23,11 @@ const AppAllQuery = graphql`
 class App extends React.Component {
     render() {
         return (
+
             <QueryRenderer
                 environment={environment}
                 query={AppAllQuery}
+                variables={{ }}
                 render={({error, props}) => {
                     if (error) {
                         return <div>{error.message}</div>
@@ -40,6 +41,7 @@ class App extends React.Component {
                     return <div>Loading</div>
                 }}
             />
+
 
         );
     }
