@@ -1,4 +1,6 @@
 import React from 'react';
+
+import CompanyPage from '../containers/Pages/CompanyPage'
 export default [
     {
         path: '/',
@@ -13,9 +15,16 @@ export default [
         main: () => <h2>Bubblegum</h2>,
         name: 'Stocks',
     },
-
     {
-        path: '*',
-        name: 'Page Not Found'
+        path: '/company/:id',
+        sidebar: () => <div>company!</div>,
+        main: require('../containers/Pages/CompanyPage').default,
+        name: 'Company',
     },
+    // {
+    //     path: '*',
+    //     // TODO: Replace ths with a proper page
+    //     name: 'Page Not Found',
+    //     main: () => <div>Page not found</div>
+    // },
 ]

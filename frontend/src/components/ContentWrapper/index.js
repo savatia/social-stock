@@ -24,7 +24,7 @@ const ContentWrapper = () => (
                             key={index}
                             path={route.path}
                             exact={route.exact}
-                            component={route.sidebar}
+                            component={route.main}
                         />
                     ))
                     }

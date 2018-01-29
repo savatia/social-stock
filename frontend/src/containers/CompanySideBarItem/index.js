@@ -12,9 +12,11 @@ import {
 class CompanySideBarItem extends React.Component{
     render(){
         console.log("CompanySideBarItem")
-        console.log(this.props)
         return (
-            <MenuItem href={`/company/${this.props.company.symbol}`}>{ this.props.company.name }</MenuItem>
+            <LinkContainer to={`/company/${this.props.company.symbol}`}>
+                 <MenuItem>{ this.props.company.name }</MenuItem>
+            </LinkContainer>
+
         )
     }
 }
