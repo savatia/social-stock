@@ -38,5 +38,11 @@ module.exports = {
                 loader: ExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader!less-loader"})
             }
         ]
+    },
+    resolve: {
+        modules: [
+            path.join(path.dirname(__dirname)),
+            path.join(path.dirname(__dirname), '/node_modules')
+        ]
     }
 }

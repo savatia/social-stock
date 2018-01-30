@@ -1,6 +1,7 @@
 var merge = require('webpack-merge');
 var common = require('./common.js');
 var webpack = require('webpack');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = merge(common, {
     // devtool: 'inline-source-map',
@@ -16,5 +17,6 @@ module.exports = merge(common, {
                 NODE_ENV: JSON.stringify("development")
             }
         }),
+        new DashboardPlugin(),
     ]
 });

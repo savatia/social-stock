@@ -7,6 +7,8 @@ type CompanyNode implements Node {
   country: String
   year: Int
   subSector: SubSectorNode!
+  stockSet(before: String, after: String, first: Int, last: Int, date: String): StockNodeConnection
+  stocks(before: String, after: String, first: Int, last: Int, date: String): StockNodeConnection
 }
 
 type CompanyNodeConnection {
@@ -21,6 +23,11 @@ type CompanyNodeEdge {
   # A cursor for use in pagination
   cursor: String!
 }
+
+# The `DateTime` scalar type represents a DateTime
+# value as specified by
+# [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+scalar DateTime
 
 # An object with an ID
 interface Node {
@@ -44,7 +51,7 @@ type PageInfo {
 
 type Query {
   company(id: Int, symbol: String): CompanyNode
-  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String): CompanyNodeConnection
+  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String): CompanyNodeConnection
 
   # The ID of the object
   subSector(id: ID!): SubSectorNode
@@ -52,11 +59,37 @@ type Query {
   viewer: Viewer
 }
 
+type StockNode implements Node {
+  # The ID of the object.
+  id: ID!
+  company: CompanyNode!
+  date: DateTime!
+  open: Float!
+  high: Float!
+  low: Float!
+  close: Float!
+  adjClose: Float!
+  volume: Int!
+}
+
+type StockNodeConnection {
+  pageInfo: PageInfo!
+  edges: [StockNodeEdge]!
+}
+
+type StockNodeEdge {
+  # The item at the end of the edge
+  node: StockNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
 type SubSectorNode implements Node {
   # The ID of the object.
   id: ID!
   name: String!
-  companySet(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String): CompanyNodeConnection
+  companySet(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String): CompanyNodeConnection
 }
 
 type SubSectorNodeConnection {
@@ -74,7 +107,7 @@ type SubSectorNodeEdge {
 
 type Viewer {
   company(id: Int, symbol: String): CompanyNode
-  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String): CompanyNodeConnection
+  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String): CompanyNodeConnection
 
   # The ID of the object
   subSector(id: ID!): SubSectorNode

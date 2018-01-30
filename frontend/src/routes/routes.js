@@ -15,7 +15,7 @@ export default [
         name: 'Stocks',
     },
     {
-        path: '/company/:companySymbol',
+        path: '/company/:companySymbol*',
         sidebar: () => <div>company!</div>,
         main: require('../containers/Pages/CompanyPage').default,
         name: 'Company',

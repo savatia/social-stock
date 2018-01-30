@@ -18,3 +18,19 @@ class Company(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Stock(models.Model):
+	company = models.ForeignKey(Company, on_delete=models.CASCADE)
+	date = models.DateField()
+	open = models.DecimalField( max_digits=15, decimal_places=10)
+	high = models.DecimalField( max_digits=15, decimal_places=10)
+	low = models.DecimalField( max_digits=15, decimal_places=10)
+	close = models.DecimalField( max_digits=15, decimal_places=10)
+	adj_close = models.DecimalField( max_digits=15, decimal_places=10)
+	volume = models.IntegerField()
+
+	class Meta:
+		unique_together = (('company', 'date'),)
+
+	def __str__(self):
+		return '{}: {}'.format(self.company.name, self.date.strftime('%Y-%m-%d'))

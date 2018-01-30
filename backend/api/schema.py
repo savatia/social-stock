@@ -17,8 +17,18 @@ class SubSectorNode(DjangoObjectType):
 
 		interfaces = (relay.Node, )
 
+class StockNode(DjangoObjectType):
+	class Meta:
+		model = Stock
+		filter_fields = {
+			'date': ['exact']
+		}
+
+		interfaces = (relay.Node, )
+
 
 class CompanyNode(DjangoObjectType):
+	stocks = DjangoFilterConnectionField(StockNode)
 	class Meta:
 		model = Company
 		filter_fields = {
@@ -27,6 +37,9 @@ class CompanyNode(DjangoObjectType):
 			'country': ['exact', 'icontains', 'istartswith'],
 		}
 		interfaces = (relay.Node,)
+
+	def resolve_stocks(self, info, **kwargs):
+		return Stock.objects.filter(company=self)
 
 
 class Viewer(graphene.ObjectType):

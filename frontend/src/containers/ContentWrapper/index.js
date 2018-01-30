@@ -22,7 +22,7 @@ const ContentWrapper = () => (
             </ol>
 
             <div className="row">
-                <div className="col-xl-3 col-sm-6 mb-3">
+                <div className="col-xl-12 col-sm-12">
                     {routes.map((route, index) => (
                         <Route
                             key={index}
