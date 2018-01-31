@@ -1,7 +1,6 @@
 import React from 'react'
 import {Panel, Tab, Tabs, Row, Col, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
 import {Line} from 'react-chartjs'
-import TimeSeriesChart from 'src/components/TimeSeriesChart'
 import {LinkContainer} from 'react-router-bootstrap';
 import {
     BrowserRouter as Router,
@@ -17,6 +16,7 @@ import {
     graphql
 } from 'react-relay'
 import environment from 'src/Environment.js';
+import {Sentiments, Overview, Predictions} from 'src/containers/Pages/CompanyPage/Tabs'
 
 const CompanyPageQuery = graphql`
     query CompanyPageQuery ($symbol: String!) {
@@ -54,14 +54,6 @@ export default class CompanyPage extends React.Component {
                         return <div>{error.message}</div>
                     }
                     else if (props) {
-                        const chartData = props.company.stocks.edges.map((stock) => {
-                            return {
-                                value: stock.node.close,
-                                time: new Date(stock.node.date).getTime(),
-
-                            }
-                        });
-
                         return (
                             <Panel>
                                 <h1>{props.company.name}<span
@@ -86,16 +78,16 @@ export default class CompanyPage extends React.Component {
                                             <Tab.Content animation>
                                                 <Switch>
                                                     <Route exact path="/company/:companySymbol"
-                                                           component={({match}) => {
-                                                               return ("Overview")
+                                                           component={() => {
+                                                               return <Overview company={props.company}/>
                                                            }}/>
                                                     <Route path="/company/:companySymbol/sentiments"
                                                            component={() => {
-                                                               return ("Sentiments")
+                                                              return <Sentiments company={props.company}/>
                                                            }}/>
                                                     <Route path="/company/:companySymbol/predictions"
                                                            component={() => {
-                                                               return "predictions"
+                                                               return <Predictions company={props.company}/>
                                                            }}/>
                                                     <Route component={() => {
                                                                return "Not Found"

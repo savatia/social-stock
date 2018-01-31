@@ -34,3 +34,19 @@ class Stock(models.Model):
 
 	def __str__(self):
 		return '{}: {}'.format(self.company.name, self.date.strftime('%Y-%m-%d'))
+
+class Sentiments(models.Model):
+	company = models.ForeignKey(Company, on_delete=models.CASCADE)
+	date = models.DateField()
+	tweet_sentiment = models.DecimalField( max_digits=9, decimal_places=2)
+	tweet_volume = models.IntegerField()
+	retweet_volume = models.IntegerField()
+	retweet_sentiment = models.DecimalField( max_digits=9, decimal_places=2)
+	favorite_sentiment = models.DecimalField( max_digits=9, decimal_places=2)
+	favorite_volume = models.IntegerField()
+
+	class Meta:
+		unique_together = (('company', 'date'),)
+
+	def __str__(self):
+		return '{}: {}'.format(self.company.name, self.date.strftime('%Y-%m-%d'))
