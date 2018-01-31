@@ -2,9 +2,9 @@ import {Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, But
 import React from 'react';
 import Sidebar from '../Sidebar';
 import SidebarDropdown from '../SidebarDropdown';
-import CompanySidebarItem from '../../containers/CompanySideBarItem';
+import CompanySidebarItem from 'src/containers/CompanySideBarItem';
 import {LinkContainer} from 'react-router-bootstrap';
-
+import {Link} from 'react-router-dom'
 import {
     createFragmentContainer,
     graphql
@@ -16,7 +16,7 @@ class Navigation extends React.Component {
             <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="#">React-Bootstrap</a>
+                        <Link to="/">Social Stock</Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
@@ -28,7 +28,7 @@ class Navigation extends React.Component {
                 </div>
                 <Navbar.Collapse>
                     <Sidebar>
-                        <LinkContainer to="/">
+                        <LinkContainer exact to="/">
                             <NavItem eventKey={1}>Home</NavItem>
                         </LinkContainer>
                         <LinkContainer to="/stocks">
