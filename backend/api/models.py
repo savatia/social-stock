@@ -35,7 +35,7 @@ class Stock(models.Model):
 	def __str__(self):
 		return '{}: {}'.format(self.company.name, self.date.strftime('%Y-%m-%d'))
 
-class Sentiments(models.Model):
+class Sentiment(models.Model):
 	company = models.ForeignKey(Company, on_delete=models.CASCADE)
 	date = models.DateField()
 	tweet_sentiment = models.DecimalField( max_digits=9, decimal_places=2)

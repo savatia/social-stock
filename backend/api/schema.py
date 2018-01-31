@@ -27,8 +27,21 @@ class StockNode(DjangoObjectType):
 		interfaces = (relay.Node, )
 
 
+class SentimentNode(DjangoObjectType):
+	class Meta:
+		model = Sentiment
+		filter_fields = {
+			'date': ['exact'],
+			'company': ['exact']
+		}
+
+		interfaces = (relay.Node, )
+
+
 class CompanyNode(DjangoObjectType):
 	stocks = DjangoFilterConnectionField(StockNode)
+	sentiments = DjangoFilterConnectionField(SentimentNode)
+
 	class Meta:
 		model = Company
 		filter_fields = {
@@ -41,6 +54,11 @@ class CompanyNode(DjangoObjectType):
 	def resolve_stocks(self, info, **kwargs):
 		return Stock.objects.filter(company=self)
 
+	def resolve_sentiments(self, info, **kwargs):
+		return Sentiment.objects.filter(company=self)
+
+
+
 
 class Viewer(graphene.ObjectType):
 	company = graphene.Field(CompanyNode, id=graphene.Int(), symbol=graphene.String())
@@ -48,6 +66,8 @@ class Viewer(graphene.ObjectType):
 
 	sub_sector = relay.Node.Field(SubSectorNode)
 	sub_sectors = DjangoFilterConnectionField(SubSectorNode)
+
+	sentiment = graphene.Field(SentimentNode, symbol=graphene.String(), date=graphene.String())
 
 	def resolve_companies(self, info, **kwargs):
 		return Company.objects.all()
@@ -65,6 +85,14 @@ class Viewer(graphene.ObjectType):
 		if symbol is not None:
 			return Company.objects.get(symbol=symbol)
 
+		return None
+
+	def resolve_sentiment(self, info, **kwargs):
+		date = kwargs.get('date')
+		symbol = kwargs.get('symbol')
+		company = Company.objects.get(symbol=symbol)
+		if date is not None and symbol is not None:
+			return Sentiment.objects.get(date=date, company=company)
 		return None
 
 

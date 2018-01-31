@@ -44,21 +44,25 @@ class Command(BaseCommand):
 			# print(item)
 			date = item[0].date()
 			item = item[1]
-			Stock.objects.update_or_create(
-				company=company,
-				date=date,
-				open=item.Open,
-				high=item.High,
-				low=item.Low,
-				close=item.Close,
-				adj_close=item.Close,
-				volume=item.Volume
-			)
+
+			try:
+				Stock.objects.update_or_create(
+					company=company,
+					date=date,
+					open=item.Open,
+					high=item.High,
+					low=item.Low,
+					close=item.Close,
+					adj_close=item.Close,
+					volume=item.Volume
+				)
+			except django.db.utils.IntegrityError:
+				pass
 
 	def handle(self, *args, **options):
 
 		securities = [
-			# 'MSFT',
+			'MSFT',
 			# 'GOOG',
 			'AAPL'
 		]

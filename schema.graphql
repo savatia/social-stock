@@ -1,0 +1,146 @@
+type CompanyNode implements Node {
+  # The ID of the object.
+  id: ID!
+  name: String!
+  symbol: String!
+  marketCap: Int
+  country: String
+  year: Int
+  subSector: SubSectorNode!
+  stockSet(before: String, after: String, first: Int, last: Int, date: String): StockNodeConnection
+  sentimentSet(before: String, after: String, first: Int, last: Int, company: ID, date: String): SentimentNodeConnection
+  stocks(before: String, after: String, first: Int, last: Int, date: String): StockNodeConnection
+  sentiments(before: String, after: String, first: Int, last: Int, company: ID, date: String): SentimentNodeConnection
+}
+
+type CompanyNodeConnection {
+  pageInfo: PageInfo!
+  edges: [CompanyNodeEdge]!
+}
+
+type CompanyNodeEdge {
+  # The item at the end of the edge
+  node: CompanyNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# The `DateTime` scalar type represents a DateTime
+# value as specified by
+# [iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+scalar DateTime
+
+# An object with an ID
+interface Node {
+  # The ID of the object.
+  id: ID!
+}
+
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Query {
+  company(id: Int, symbol: String): CompanyNode
+  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String): CompanyNodeConnection
+
+  # The ID of the object
+  subSector(id: ID!): SubSectorNode
+  subSectors(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String): SubSectorNodeConnection
+  sentiment(symbol: String, date: String): SentimentNode
+  viewer: Viewer
+}
+
+type SentimentNode implements Node {
+  # The ID of the object.
+  id: ID!
+  company: CompanyNode!
+  date: DateTime!
+  tweetSentiment: Float!
+  tweetVolume: Int!
+  retweetVolume: Int!
+  retweetSentiment: Float!
+  favoriteSentiment: Float!
+  favoriteVolume: Int!
+}
+
+type SentimentNodeConnection {
+  pageInfo: PageInfo!
+  edges: [SentimentNodeEdge]!
+}
+
+type SentimentNodeEdge {
+  # The item at the end of the edge
+  node: SentimentNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type StockNode implements Node {
+  # The ID of the object.
+  id: ID!
+  company: CompanyNode!
+  date: DateTime!
+  open: Float!
+  high: Float!
+  low: Float!
+  close: Float!
+  adjClose: Float!
+  volume: Int!
+}
+
+type StockNodeConnection {
+  pageInfo: PageInfo!
+  edges: [StockNodeEdge]!
+}
+
+type StockNodeEdge {
+  # The item at the end of the edge
+  node: StockNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type SubSectorNode implements Node {
+  # The ID of the object.
+  id: ID!
+  name: String!
+  companySet(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String): CompanyNodeConnection
+}
+
+type SubSectorNodeConnection {
+  pageInfo: PageInfo!
+  edges: [SubSectorNodeEdge]!
+}
+
+type SubSectorNodeEdge {
+  # The item at the end of the edge
+  node: SubSectorNode
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+type Viewer {
+  company(id: Int, symbol: String): CompanyNode
+  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String): CompanyNodeConnection
+
+  # The ID of the object
+  subSector(id: ID!): SubSectorNode
+  subSectors(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String): SubSectorNodeConnection
+  sentiment(symbol: String, date: String): SentimentNode
+}
+

@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(SubSector)
 admin.site.register(Company)
 admin.site.register(Stock)
+admin.site.register(Sentiment)
