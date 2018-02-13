@@ -13,55 +13,127 @@ import {
 class Navigation extends React.Component {
     render() {
         return (
-            <Navbar inverse collapseOnSelect>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <Link to="/">Social Stock</Link>
-                    </Navbar.Brand>
-                    <Navbar.Toggle />
-                </Navbar.Header>
-                <div className="collapse nav navbar-collapse navbar-nav" id="navbarSupportedContent">
-                    <NavItem eventKey={1} href="#">Link</NavItem>
-                    <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-
-                    </NavDropdown>
+            <nav className="navigation">
+                <div className="navbar-inverse navbar navbar-fixed-top">
+                    <div className="container-fluid">
+                        <div className="navbar-header">
+                            <Link id="logo" className="current navbar-brand" to={"/"}>
+                                <i className="fa fa-bar-chart fa-lg fa-fw"/>&nbsp;
+                                Social Stock
+                            </Link>
+                            <button className="action-right-sidebar-toggle navbar-toggle collapsed" data-target="#navdbar"
+                                    data-toggle="collapse" type="button" data-original-title="" title="">
+                                <i className="fa fa-fw fa-align-right text-white"/>
+                            </button>
+                            <button className="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse"
+                                    type="button">
+                                <i className="fa fa-fw fa-user text-white"/>
+                            </button>
+                            <button className="action-sidebar-open navbar-toggle collapsed" type="button">
+                                <i className="fa fa-fw fa-bars text-white"/>
+                            </button>
+                        </div>
+                        <div className="collapse navbar-collapse" id="navbar"></div>
+                    </div>
                 </div>
-                <Navbar.Collapse>
-                    <Sidebar>
-                        <LinkContainer exact to="/">
-                            <NavItem eventKey={1}>Home</NavItem>
-                        </LinkContainer>
-                        <SidebarDropdown eventKey={3} open={true} href="javascript:void(0)" title="Companies" id="basic-nav-dropdown">
-                            {
-                                this.props.companies.companies.edges.map((node) => (
-                                    <CompanySidebarItem key={node.cursor} company={node.node}/>
-                                ))
-                            }
-                        </SidebarDropdown>
-                         {/*TODO: Change this to sentimnet analyzer*/}
-                         <LinkContainer to="/stocks">
-                            <NavItem eventKey={2}>Stocks</NavItem>
-                        </LinkContainer>
-                    </Sidebar>
-                </Navbar.Collapse>
-            </Navbar>
-        );
-    }
-}
 
-export default createFragmentContainer(Navigation, graphql`
+                <aside className="navbar-default sidebar affix-top ps-container ps-theme-default">
+                    <div className="sidebar-logo">
+                        <Link to={"/"}> Social Stock Prediction</Link>
+                    </div>
+                    <div className="sidebar-default-visible text-muted small text-uppercase sidebar-section p-y-2">
+                        <strong>Navigation</strong>
+                    </div>
+                    <div className="sidebar-content">
+                        <ul className="side-menu">
+
+                            <li className="Dashboards nested-active primary-submenu has-submenu expanded">
+                                <a href="javascript: void(0)" title="Dashboards">
+                                    <i className="fa fa-home fa-lg fa-fw"/><span className="nav-label">Start</span>
+                                    <i className="fa arrow"/>
+                                </a>
+                                <ul className="submenu-level-1">
+                                    <li className="">
+                                        <a href="../start/financial.html">
+                                            <span className="nav-label">Financial</span>
+                                        </a>
+                                    </li>
+                                    <li className="">
+                                        <a href="../start/projects.html">
+                                            <span className="nav-label">Projects</span>
+                                        </a>
+                                    </li>
+                                    <li className="">
+                                        <a href="../start/monitor.html">
+                                            <span className="nav-label">Monitor</span>
+                                        </a>
+                                    </li>
+                                    <li className="">
+                                        <a href="../start/system.html">
+                                            <span className="nav-label">System</span>
+                                        </a>
+                                    </li>
+                                    <li className="active nested-active expanded">
+                                        <a href="../start/activity-team.html">
+                                            <span className="nav-label">Activity Team</span>
+                                        </a>
+                                    </li>
+                                    <li className="">
+                                        <a href="../start/e-commerce.html">
+                                            <span className="nav-label">E-Commerce</span>
+                                        </a>
+                                    </li>
+                                    <li className="">
+                                        <a href="../start/stock.html">
+                                            <span className="nav-label">Stock</span>
+                                        </a>
+                                    </li>
+                                    <li className="">
+                                        <a href="../start/performance.html">
+                                            <span className="nav-label">Performance</span>
+                                        </a>
+                                    </li>
+                                    <li className="">
+                                        <a href="../start/exchange&amp;trading.html">
+                                            <span className="nav-label">Exchange &amp; Trading</span>
+                                        </a>
+                                    </li>
+                                    <li className="">
+                                        <a href="../start/overview.html">
+                                            <span className="nav-label">Overview</span>
+                                        </a>
+                                    </li>
+                                    <li className="">
+                                        <a href="../start/analytics.html">
+                                            <span className="nav-label">Analytics</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                </aside>
+            </nav>
+    );
+    }
+    }
+
+    export default createFragmentContainer(Navigation, graphql`
     fragment Navigation_companies on Viewer {
         companies(last: 10, published: true) {
-            edges{
-                node{
-                 ...CompanySideBarItem_company
-                } 
-                cursor
-            }
-            pageInfo{
-                hasPreviousPage
-                startCursor
-            }
-        }
+        edges{
+        node{
+        ...CompanySideBarItem_company
     }
-`);
+        cursor
+    }
+        pageInfo{
+        hasPreviousPage
+        startCursor
+    }
+    }
+    }
+    `);
