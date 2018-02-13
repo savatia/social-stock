@@ -49,7 +49,7 @@ const TimeSeriesChart = ({chartData, onDotClick}) => (
             <CartesianGrid stroke="#ccc" strokeDasharray="2 2"/>
             <YAxis dataKey={'sentiment'} name="Sentiment"/>
             <ZAxis dataKey={'volume'} range={[1, 1000]} name="Volume"/>
-            <Scatter onClick={ onDotClick}  data={chartData} name={"Sentiment"} fill='#558884d8'
+            <Scatter onClick={ onDotClick}  data={chartData} name={"Sentiment"} fill='#55cb3e4b'
             />
 
         </ScatterChart>

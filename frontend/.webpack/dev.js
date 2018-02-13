@@ -17,6 +17,6 @@ module.exports = merge(common, {
                 NODE_ENV: JSON.stringify("development")
             }
         }),
-        new DashboardPlugin(),
+        // new DashboardPlugin(),
     ]
 });

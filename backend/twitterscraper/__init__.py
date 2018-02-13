@@ -11,4 +11,5 @@ __license__ = 'MIT'
 
 
 from twitterscraper.query import query_tweets
+from twitterscraper.query import roundup
 from twitterscraper.tweet import Tweet

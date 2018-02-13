@@ -16,12 +16,14 @@
     "chart.js": "^1.1.1",
     "ev-emitter": "^1.1.1",
     "font-awesome": "^4.7.0",
+    "highcharts": "^6.0.6",
     "moment": "^2.20.1",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
     "react-bootstrap": "^0.31.5",
     "react-chartjs": "^1.2.0",
     "react-dom": "^16.2.0",
+    "react-highcharts": "^16.0.2",
     "react-redux": "^5.0.6",
     "react-relay": "^1.4.1",
     "react-router": "^4.2.0",
@@ -63,7 +65,10 @@
   },
   "babel": {
     "plugins": [
-      "relay"
+      "relay",
+      "babel-plugin-root-import",
+      "babel-plugin-transform-object-rest-spread",
+      "babel-plugin-transform-react-jsx"
     ]
   }
 }

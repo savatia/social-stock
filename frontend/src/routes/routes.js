@@ -5,7 +5,7 @@ export default [
         path: '/',
         exact: true,
         sidebar: () => <div>home!</div>,
-        main: () => <h2>Home</h2>,
+        main: require('src/containers/Pages/MainPage').default,
         name: 'Home',
     },
     {

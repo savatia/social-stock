@@ -67,10 +67,10 @@ export default class CompanyPage extends React.Component {
                     }
                     else if (props) {
                         return (
-                            <Panel>
+                            <div>
                                 <h1>{props.company.name}<span
-                                    className="small text-muted">({props.company.symbol})</span></h1>
-                                <h5><span className="text-muted">{props.company.subSector.name}</span></h5>
+                                    className="small text-muted">({props.company.symbol})</span>
+                                <h5><span className="text-muted">{props.company.subSector.name}</span></h5></h1>
                                 <Tab.Container id="companyPageTab">
                                     <Row className="clearfix">
                                         <Col sm={12}>
@@ -95,15 +95,16 @@ export default class CompanyPage extends React.Component {
                                                            }}/>
                                                     <Route path="/company/:companySymbol/sentiments"
                                                            component={() => {
-                                                              return <Sentiments tweets={props} company={props.company}/>
+                                                               return <Sentiments tweets={props}
+                                                                                  company={props.company}/>
                                                            }}/>
                                                     <Route path="/company/:companySymbol/predictions"
                                                            component={() => {
                                                                return <Predictions company={props.company}/>
                                                            }}/>
                                                     <Route component={() => {
-                                                               return "Not Found"
-                                                           }}/>
+                                                        return "Not Found"
+                                                    }}/>
                                                 </Switch>
 
 
@@ -111,7 +112,8 @@ export default class CompanyPage extends React.Component {
                                         </Col>
                                     </Row>
                                 </Tab.Container>
-                            </Panel>
+                            </div>
+
                         )
                     }
                     return <div>Loading</div>

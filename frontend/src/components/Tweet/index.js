@@ -5,66 +5,64 @@ import {Glyphicon} from 'react-bootstrap'
 
 const Tweet = ({tweet}) => {
     return (
-        <tr>
-            <td>
-                <div className="media media-auto">
-                    <div className="media-left">
-                        <a href={`//twiter.com/${tweet.user}`} target="_blank">
-                            <img className="media-object img-circle" style={{width: 35}}
-                                 src={`https://twitter.com/${tweet.user}/profile_image?size=bigger`}
-                                 alt="Avatar"/>
-                        </a>
-                    </div>
-                    <div className="media-body">
-                        <div className="col-md-12">
-                            <div className="row">
-                                <span className="media-heading text-white">
-                                    <a href={`//twiter.com/${tweet.user}`} target="_blank">{tweet.fullname}</a>
-                                </span>
-                            </div>
-                            <div className="row"><span className="text-muted">@{tweet.user}</span>&nbsp;
-                                <span className="media-heading">
-                                    <span>&nbsp;on&nbsp;
-                                        <a className="list-unstyled" target="_blank"
-                                           href={`https://twitter.com/${tweet.user}/status/${tweet.id}`}>
-                                            {moment(tweet.date).format('MMM D YYYY')}
-                                        </a>
-                                    </span>
-                                </span>
-                            </div>
-
-                        </div>
-                        <br />
-
-                        <p className="m-t-2 m-b-0"><span>{tweet.text}</span></p>
-                        <ul className="tweet-icons list-unstyled list-inline ">
-                            <li className="list-inline-item">
-                                <Glyphicon glyph="star"><span
-                                    className="tweet-icons-text tweet-icons-text-likes">{tweet.likes}</span></Glyphicon>
-                            </li>
-                            <li className=" list-inline-item">
-                                <Glyphicon glyph="retweet"><span
-                                    className="tweet-icons-text tweet-icons-text-retweets">{tweet.retweets}</span></Glyphicon>
-                            </li>
-                        </ul>
-
-                    </div>
+        <div className="timeline">
+            <div className="timeline-item p-r-1">
+                <div className="timeline-icon">
                     {
                         (tweet.sentiment === "pos") ? (
-                                <div className="tweet-sentiment alert-success media-right">
-                                    <i className="fa fa-smile-o"/>
-                                </div>
+                                 <i className="fa fa-fw fa-smile-o text-success"/>
                             ) :
                             (
-                                <div className="tweet-sentiment alert-danger media-right">
-                                    <i className="fa fa-frown-o"/>
-                                </div>
+                                <i className="fa fa-fw  fa-frown-o text-danger"/>
                             )
                     }
 
                 </div>
-            </td>
-        </tr>
+                <div className="timeline-item-head clearfix m-b-0">
+                    <div className="row">
+
+                        <div className="col-lg-4">
+                            <div className="media m-l-1">
+                                <div className="media-left media-top">
+                                    <a hhref={`//twiter.com/${tweet.user}`} target="_blank" data-toggle="tooltip"
+                                       data-placement="top" title="" data-original-title="Go to Full Profile">
+                                        <div className="avatar"><img className="media-object img-circle" alt="Avatar"
+                                                                     src={`https://twitter.com/${tweet.user}/profile_image?size=bigger`}/>
+                                            <i className="avatar-status avatar-status-bottom bg-success b-brand-gray-darker"/>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div className="media-body">
+                                    <h5 className="m-t-0 m-b-0"><span>{tweet.fullname}</span></h5>
+                                    <p className="m-t-0"><span> <a href={`//twiter.com/${tweet.user}`}
+                                                                   target="_blank">@{tweet.user}</a></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-6">
+                            <div className="m-l-1"><span>{tweet.text}</span>
+                                <br/>
+                                <span className="hidden-lg"> <small><span>
+                                                    <a className="list-unstyled" target="_blank"
+                                                       href={`https://twitter.com/${tweet.user}/status/${tweet.id}`}>
+                                                        {moment(tweet.date).format('MMM D YYYY')}
+                                                        </a>
+                                                </span>
+                                                </small>
+                                                </span>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-2 text-right hidden-md hidden-sm hidden-xs">
+                            <span>{moment(tweet.date).format('MMM D YYYY')}</span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     )
 }
 

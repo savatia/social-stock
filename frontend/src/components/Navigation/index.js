@@ -21,7 +21,8 @@ class Navigation extends React.Component {
                                 <i className="fa fa-bar-chart fa-lg fa-fw"/>&nbsp;
                                 Social Stock
                             </Link>
-                            <button className="action-right-sidebar-toggle navbar-toggle collapsed" data-target="#navdbar"
+                            <button className="action-right-sidebar-toggle navbar-toggle collapsed"
+                                    data-target="#navdbar"
                                     data-toggle="collapse" type="button" data-original-title="" title="">
                                 <i className="fa fa-fw fa-align-right text-white"/>
                             </button>
@@ -46,70 +47,27 @@ class Navigation extends React.Component {
                     </div>
                     <div className="sidebar-content">
                         <ul className="side-menu">
-
+                            <LinkContainer activeClassName={"active"} exact to={`/`}>
+                                <MenuItem><i className="fa fa-home fa-lg fa-fw"/> <span className="nav-label">Home</span></MenuItem>
+                            </LinkContainer>
                             <li className="Dashboards nested-active primary-submenu has-submenu expanded">
                                 <a href="javascript: void(0)" title="Dashboards">
-                                    <i className="fa fa-home fa-lg fa-fw"/><span className="nav-label">Start</span>
+                                    <i className="fa fa-line-chart fa-lg fa-fw"/><span
+                                    className="nav-label">Stocks</span>
                                     <i className="fa arrow"/>
                                 </a>
                                 <ul className="submenu-level-1">
-                                    <li className="">
-                                        <a href="../start/financial.html">
-                                            <span className="nav-label">Financial</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
-                                        <a href="../start/projects.html">
-                                            <span className="nav-label">Projects</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
-                                        <a href="../start/monitor.html">
-                                            <span className="nav-label">Monitor</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
-                                        <a href="../start/system.html">
-                                            <span className="nav-label">System</span>
-                                        </a>
-                                    </li>
-                                    <li className="active nested-active expanded">
-                                        <a href="../start/activity-team.html">
-                                            <span className="nav-label">Activity Team</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
-                                        <a href="../start/e-commerce.html">
-                                            <span className="nav-label">E-Commerce</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
-                                        <a href="../start/stock.html">
-                                            <span className="nav-label">Stock</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
-                                        <a href="../start/performance.html">
-                                            <span className="nav-label">Performance</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
-                                        <a href="../start/exchange&amp;trading.html">
-                                            <span className="nav-label">Exchange &amp; Trading</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
-                                        <a href="../start/overview.html">
-                                            <span className="nav-label">Overview</span>
-                                        </a>
-                                    </li>
-                                    <li className="">
-                                        <a href="../start/analytics.html">
-                                            <span className="nav-label">Analytics</span>
-                                        </a>
-                                    </li>
+                                    {
+                                        this.props.companies.companies.edges.map((node) => (
+                                            <CompanySidebarItem key={node.cursor} company={node.node}/>
+                                        ))
+                                    }
+
                                 </ul>
                             </li>
+                            <LinkContainer exact to={`#`}>
+                                <MenuItem><i className="fa fa-smile-o fa-lg fa-fw"/> <span className="nav-label">Sentiment Analysis</span></MenuItem>
+                            </LinkContainer>
 
 
                         </ul>
@@ -117,11 +75,11 @@ class Navigation extends React.Component {
 
                 </aside>
             </nav>
-    );
+        );
     }
-    }
+}
 
-    export default createFragmentContainer(Navigation, graphql`
+export default createFragmentContainer(Navigation, graphql`
     fragment Navigation_companies on Viewer {
         companies(last: 10, published: true) {
         edges{

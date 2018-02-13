@@ -1,6 +1,8 @@
 {
   "plugins": [
     "relay",
-    "babel-plugin-root-import"
+    "babel-plugin-root-import",
+    "babel-plugin-transform-object-rest-spread",
+    "babel-plugin-transform-react-jsx"
   ]
 }

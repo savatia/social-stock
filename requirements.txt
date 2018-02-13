@@ -27,7 +27,6 @@ requests-ftp==0.3.1
 Rx==1.6.0
 singledispatch==3.4.0.3
 six==1.11.0
-twitterscraper==0.4.2
 typing==3.6.2
 urllib3==1.22
 wrapt==1.10.11

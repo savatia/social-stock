@@ -13,7 +13,7 @@ class CompanySideBarItem extends React.Component{
     render(){
         return (
             <LinkContainer to={`/company/${this.props.company.symbol}`}>
-                 <MenuItem>{ this.props.company.name }</MenuItem>
+                 <MenuItem> <span className="nav-label">{ this.props.company.name }</span></MenuItem>
             </LinkContainer>
 
         )

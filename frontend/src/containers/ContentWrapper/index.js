@@ -38,20 +38,22 @@ const ContentWrapper = () => (
                 </div>
             </div>
         </div>
-
-        <div className="row">
-            <div className="col-xl-12 col-sm-12">
-                {routes.map((route, index) => (
-                    <Route
-                        key={index}
-                        path={route.path}
-                        exact={route.exact}
-                        component={route.main}
-                    />
-                ))
-                }
+        <div className="container page-wrapper">
+            <div className="row">
+                <div className="col-xl-12 col-sm-12">
+                    {routes.map((route, index) => (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            exact={route.exact}
+                            component={route.main}
+                        />
+                    ))
+                    }
+                </div>
             </div>
         </div>
+
 
     </div>
 );

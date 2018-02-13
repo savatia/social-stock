@@ -27,7 +27,7 @@ const TimeSeriesLineChart = ({chartData}) => (
             <CartesianGrid stroke="#ccc" strokeDasharray="2 2" />
             <YAxis name="Closing Price"/>
             <Tooltip  labelFormatter={(unixTime) => moment(unixTime).format('MMM D Y')}/>
-            <Line dot={false} type="monotone" name={"Closing Price"} dataKey="value" stroke="#8884d8"
+            <Line dot={false} type="monotone" name={"Closing Price"} dataKey="value" stroke="#2d99dc"
             />
 
         </LineChart>

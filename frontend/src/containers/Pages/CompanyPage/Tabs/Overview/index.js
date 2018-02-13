@@ -1,16 +1,17 @@
 import React from 'react'
-import TimeSeriesLineChart from 'src/components/Charts/TimeSeriesLineChart'
+import HighStockTimeSeries from 'src/components/Charts/HighStockTimeSeries'
 
 const Overview = ({company}) => {
     const chartData = company.stocks.edges.map((stock) => {
-        return {
-            value: stock.node.close,
-            time: new Date(stock.node.date).getTime(),
+        return [
+            new Date(stock.node.date).getTime(),
+            stock.node.close,
 
-        }
+
+        ]
     });
     return (
-        <TimeSeriesLineChart chartData={chartData}/>
+        <HighStockTimeSeries chartData={chartData} title={`${company.name} Stock Price`} name={company.symbol}/>
     )
 }
 

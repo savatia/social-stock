@@ -43,21 +43,14 @@ class Sentiments extends React.Component {
                 <TimeSeriesScatterChart onDotClick={this.handleDotClick} chartData={chartData}/>
                 <hr/>
                 <h3>Tweets for { moment(this.state.searchDate).format('MMMM Do YYYY') }:</h3>
-                <table className="table table-hover">
-                    <thead>
-                    <tr>
-                        <th className="small text-muted text-uppercase">
-                        </th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    {this.state.loadingTweets ? <tr>loading...</tr> : this.state.tweets.map((tweet) => <Tweet
-                            key={tweet.id} tweet={tweet}/>)}
-                    </tbody>
-                </table>
-
-
+                <div className="timeline">
+                    <div className="timeline-date">
+                        <span className="badge">{ moment(this.state.searchDate).format('MMMM Do YYYY') }</span>
+                    </div>
+                </div>
+                <br/>
+                {this.state.loadingTweets ? <tr>loading...</tr> : this.state.tweets.map((tweet) => <Tweet
+                        key={tweet.id} tweet={tweet}/>)}
             </div>
         )
     }

@@ -145,9 +145,14 @@ class Query(Viewer):
 
 			start_date = start_date.date()
 			end_date = end_date.date()
+			tweets = []
+			try:
+				search_terms = ' OR '.join(company.search_terms.split())
+				tweets = ts.query_tweets(lang='en', query=search_terms ,limit=1, begindate=start_date, enddate=end_date)
+				tweets = [Tweet.parse(x) for x in tweets]
+			except:
+				pass
 
-			tweets = ts.query_tweets(lang='en', query=' OR '.join(company.search_terms.split()) ,limit=20, begindate=start_date, enddate=end_date)
-			tweets =  [Tweet.parse(x) for x in tweets]
 
 			tweet_clf = TweetClassifier()
 			for tweet in tweets:
