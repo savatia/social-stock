@@ -25,5 +25,6 @@ export default createFragmentContainer(CompanySideBarItem, graphql`
         id
         name
         symbol
+        published
     }
 `)

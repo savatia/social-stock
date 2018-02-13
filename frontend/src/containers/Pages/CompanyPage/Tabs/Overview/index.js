@@ -1,5 +1,5 @@
 import React from 'react'
-import TimeSeriesChart from 'src/components/TimeSeriesChart'
+import TimeSeriesLineChart from 'src/components/Charts/TimeSeriesLineChart'
 
 const Overview = ({company}) => {
     const chartData = company.stocks.edges.map((stock) => {
@@ -10,7 +10,7 @@ const Overview = ({company}) => {
         }
     });
     return (
-        <TimeSeriesChart chartData={chartData}/>
+        <TimeSeriesLineChart chartData={chartData}/>
     )
 }
 

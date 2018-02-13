@@ -15,7 +15,8 @@ class Company(models.Model):
 	country = models.CharField(max_length=50, null=True, blank=True)
 	year = models.IntegerField(null=True, blank=True)
 	sub_sector = models.ForeignKey(SubSector, on_delete=models.DO_NOTHING)
-
+	search_terms = models.CharField(max_length=1000, null=True)
+	published = models.BooleanField(default=False)
 	def __str__(self):
 		return self.name
 
@@ -27,6 +28,7 @@ class Stock(models.Model):
 	low = models.DecimalField( max_digits=15, decimal_places=10)
 	close = models.DecimalField( max_digits=15, decimal_places=10)
 	adj_close = models.DecimalField( max_digits=15, decimal_places=10)
+	prediction = models.DecimalField(max_digits=15, decimal_places=10, null=True)
 	volume = models.IntegerField()
 
 	class Meta:

@@ -2,6 +2,8 @@ import React from 'react'
 import {Panel, Tab, Tabs, Row, Col, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
 import {Line} from 'react-chartjs'
 import {LinkContainer} from 'react-router-bootstrap';
+import moment from 'moment'
+
 import {
     BrowserRouter as Router,
     Route,
@@ -19,7 +21,8 @@ import environment from 'src/Environment.js';
 import {Sentiments, Overview, Predictions} from 'src/containers/Pages/CompanyPage/Tabs'
 
 const CompanyPageQuery = graphql`
-    query CompanyPageQuery ($symbol: String!) {
+    query CompanyPageQuery ($symbol: String!, $date: String!) {
+        ...Sentiments_tweets  @arguments(date: $date, symbol: $symbol)
         company(symbol: $symbol){
             id
             name
@@ -36,6 +39,15 @@ const CompanyPageQuery = graphql`
                     }
                 }
             }
+            sentiments{
+                edges{
+                    node{
+                        date
+                        retweetVolume
+                        retweetSentiment
+                    }
+                }
+            }
         }
     }
 `;
@@ -47,7 +59,7 @@ export default class CompanyPage extends React.Component {
                 environment={environment}
                 query={CompanyPageQuery}
                 variables={{
-                    symbol: this.props.match.params.companySymbol
+                    symbol: this.props.match.params.companySymbol, date: moment().format('Y-M-D')
                 }}
                 render={({error, props}) => {
                     if (error) {
@@ -83,7 +95,7 @@ export default class CompanyPage extends React.Component {
                                                            }}/>
                                                     <Route path="/company/:companySymbol/sentiments"
                                                            component={() => {
-                                                              return <Sentiments company={props.company}/>
+                                                              return <Sentiments tweets={props} company={props.company}/>
                                                            }}/>
                                                     <Route path="/company/:companySymbol/predictions"
                                                            component={() => {

@@ -15,6 +15,7 @@
     "bootstrap": "^3.3.7",
     "chart.js": "^1.1.1",
     "ev-emitter": "^1.1.1",
+    "font-awesome": "^4.7.0",
     "moment": "^2.20.1",
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",

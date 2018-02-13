@@ -7,8 +7,12 @@ type CompanyNode implements Node {
   country: String
   year: Int
   subSector: SubSectorNode!
+  searchTerms: String
+  published: Boolean!
   stockSet(before: String, after: String, first: Int, last: Int, date: String): StockNodeConnection
+  sentimentSet(before: String, after: String, first: Int, last: Int, date: String, company: ID): SentimentNodeConnection
   stocks(before: String, after: String, first: Int, last: Int, date: String): StockNodeConnection
+  sentiments(before: String, after: String, first: Int, last: Int, date: String, company: ID): SentimentNodeConnection
 }
 
 type CompanyNodeConnection {
@@ -51,12 +55,40 @@ type PageInfo {
 
 type Query {
   company(id: Int, symbol: String): CompanyNode
-  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String): CompanyNodeConnection
+  companies(before: String, after: String, first: Int, last: Int, published: Boolean, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, name: String, name_Icontains: String, name_Istartswith: String): CompanyNodeConnection
 
   # The ID of the object
   subSector(id: ID!): SubSectorNode
   subSectors(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String): SubSectorNodeConnection
+  sentiment(symbol: String, date: String): SentimentNode
   viewer: Viewer
+  tweets(date: String, symbol: String): [Tweet]
+}
+
+type SentimentNode implements Node {
+  # The ID of the object.
+  id: ID!
+  company: CompanyNode!
+  date: DateTime!
+  tweetSentiment: Float!
+  tweetVolume: Int!
+  retweetVolume: Int!
+  retweetSentiment: Float!
+  favoriteSentiment: Float!
+  favoriteVolume: Int!
+}
+
+type SentimentNodeConnection {
+  pageInfo: PageInfo!
+  edges: [SentimentNodeEdge]!
+}
+
+type SentimentNodeEdge {
+  # The item at the end of the edge
+  node: SentimentNode
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 type StockNode implements Node {
@@ -69,6 +101,7 @@ type StockNode implements Node {
   low: Float!
   close: Float!
   adjClose: Float!
+  prediction: Float
   volume: Int!
 }
 
@@ -89,7 +122,7 @@ type SubSectorNode implements Node {
   # The ID of the object.
   id: ID!
   name: String!
-  companySet(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String): CompanyNodeConnection
+  companySet(before: String, after: String, first: Int, last: Int, published: Boolean, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, name: String, name_Icontains: String, name_Istartswith: String): CompanyNodeConnection
 }
 
 type SubSectorNodeConnection {
@@ -105,12 +138,26 @@ type SubSectorNodeEdge {
   cursor: String!
 }
 
+type Tweet {
+  id: String
+  text: String
+  date: String
+  fullname: String
+  replies: Int
+  likes: Int
+  retweets: Int
+  url: String
+  user: String
+  sentiment: String
+}
+
 type Viewer {
   company(id: Int, symbol: String): CompanyNode
-  companies(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String): CompanyNodeConnection
+  companies(before: String, after: String, first: Int, last: Int, published: Boolean, country: String, country_Icontains: String, country_Istartswith: String, symbol: String, symbol_Icontains: String, symbol_Istartswith: String, name: String, name_Icontains: String, name_Istartswith: String): CompanyNodeConnection
 
   # The ID of the object
   subSector(id: ID!): SubSectorNode
   subSectors(before: String, after: String, first: Int, last: Int, name: String, name_Icontains: String, name_Istartswith: String): SubSectorNodeConnection
+  sentiment(symbol: String, date: String): SentimentNode
 }
 

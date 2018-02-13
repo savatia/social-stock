@@ -1,8 +1,12 @@
+beautifulsoup4==4.6.0
+bs4==0.0.1
 certifi==2018.1.18
 chardet==3.0.4
+coala-utils==0.5.1
 Django==2.0
 django-cors-headers==2.1.0
 django-filter==1.1.0
+fake-useragent==0.1.8
 graphene==2.0.1
 graphene-django==2.0.0
 graphql-core==2.0
@@ -23,6 +27,7 @@ requests-ftp==0.3.1
 Rx==1.6.0
 singledispatch==3.4.0.3
 six==1.11.0
+twitterscraper==0.4.2
 typing==3.6.2
 urllib3==1.22
 wrapt==1.10.11

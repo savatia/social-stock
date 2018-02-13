@@ -31,18 +31,17 @@ class Navigation extends React.Component {
                         <LinkContainer exact to="/">
                             <NavItem eventKey={1}>Home</NavItem>
                         </LinkContainer>
-                        <LinkContainer to="/stocks">
-                            <NavItem eventKey={2}>Stocks</NavItem>
-                        </LinkContainer>
-
-                        <SidebarDropdown eventKey={3} title="Companies" id="basic-nav-dropdown">
+                        <SidebarDropdown eventKey={3} open={true} href="javascript:void(0)" title="Companies" id="basic-nav-dropdown">
                             {
                                 this.props.companies.companies.edges.map((node) => (
                                     <CompanySidebarItem key={node.cursor} company={node.node}/>
                                 ))
                             }
                         </SidebarDropdown>
-                        <NavItem eventKey={2} href="#">Side Link</NavItem>
+                         {/*TODO: Change this to sentimnet analyzer*/}
+                         <LinkContainer to="/stocks">
+                            <NavItem eventKey={2}>Stocks</NavItem>
+                        </LinkContainer>
                     </Sidebar>
                 </Navbar.Collapse>
             </Navbar>
@@ -52,7 +51,7 @@ class Navigation extends React.Component {
 
 export default createFragmentContainer(Navigation, graphql`
     fragment Navigation_companies on Viewer {
-        companies(last: 10) {
+        companies(last: 10, published: true) {
             edges{
                 node{
                  ...CompanySideBarItem_company

@@ -1,6 +1,8 @@
 @import '~bootstrap/dist/css/bootstrap.css';
+@import '~font-awesome/css/font-awesome.css';
+@import 'assets/css/spin.min.css';
 
-@side-bar-width: 255px;
+@side-bar-width: 250px;
 @phone: ~"only screen and (max-width: 479px)";
 @tablet: ~"only screen and (max-width: 768px)";
 @desktop: ~"only screen and (min-width: 768px) ";
@@ -14,6 +16,7 @@
 @media @desktop {
   .navbar {
     margin-left: -@side-bar-width;
+    margin-bottom: 0px;
   }
 }
 
@@ -42,7 +45,8 @@
   bottom: 0;
   overflow-x: hidden;
   padding-bottom: 40px;
-  margin-top: 70px;
+  padding-top: 70px;
+  z-index: 1;
 
   li {
     width: 100%;
@@ -63,5 +67,40 @@
 .navbar {
   .container {
     width: auto;
+  }
+}
+
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    min-width: @side-bar-width;
+    position: absolute;
+    z-index: 2;
+    background: #222222;
+    line-height: 20px;
+}
+
+.tweet-icons{
+  margin-right: 15px;
+  color: #adadad;
+  font-size: 16px;
+  .tweet-icons-text{
+    font-size: 16px;
+    margin-left: 5px;
+    color: #777;
+    vertical-align: middle;
+  }
+}
+
+.tweet-sentiment{
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .fa{
+    font-size: 32px;
+    vertical-align: middle;
   }
 }

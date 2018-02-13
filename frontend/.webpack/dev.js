@@ -5,7 +5,7 @@ var DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = merge(common, {
     // devtool: 'inline-source-map',
-    devtool: "#eval-source-map",
+    // devtool: "#eval-source-map",
     devServer: {
         historyApiFallback: {
             index: 'index.html'
