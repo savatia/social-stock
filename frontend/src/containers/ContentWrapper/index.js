@@ -19,20 +19,29 @@ const ContentWrapper = () => (
                 <div className="row">
                     <div className="col-lg-12 sub-navbar-column">
                         <div className="sub-navbar-header">
-                            <h3>Activity Team</h3>
+                            <h3>{routes.map((route, index) => (
+                                <Route
+                                    key={index}
+                                    path={route.path}
+                                    exact={route.exact}
+                                    component={ () => (route.name)}
+                                />
+                            ))
+                            }
+                            </h3>
                         </div>
                         <ol className="breadcrumb navbar-text navbar-right no-bg">
                             <li className="current-parent">
-                                <a className="current-parent" href="../index.html">
+                                <Link to={"/"} className="current-parent">
                                     <i className="fa fa-fw fa-home"/>
-                                </a>
+                                </Link>
                             </li>
                             <li>
                                 <a href="javascript: void(0)">
-                                    Start
+                                    -
                                 </a>
                             </li>
-                            <li className="active">Activity Team</li>
+                            <li className="active">-</li>
                         </ol>
                     </div>
                 </div>

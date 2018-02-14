@@ -70,7 +70,8 @@ export default class CompanyPage extends React.Component {
                             <div>
                                 <h1>{props.company.name}<span
                                     className="small text-muted">({props.company.symbol})</span>
-                                <h5><span className="text-muted">{props.company.subSector.name}</span></h5></h1>
+                                </h1>
+                                <h5><span className="text-muted">{props.company.subSector.name}</span></h5>
                                 <Tab.Container id="companyPageTab">
                                     <Row className="clearfix">
                                         <Col sm={12}>

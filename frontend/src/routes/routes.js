@@ -9,16 +9,16 @@ export default [
         name: 'Home',
     },
     {
-        path: '/stocks',
+        path: '/sentiment-analysis',
         sidebar: () => <div>bubblegum!</div>,
         main: () => <h2>Bubblegum</h2>,
-        name: 'Stocks',
+        name: 'Sentiment Analysis',
     },
     {
         path: '/company/:companySymbol/',
         sidebar: () => <div>company!</div>,
         main: require('src/containers/Pages/CompanyPage').default,
-        name: 'Company',
+        name: 'Stocks',
     },
     // {
     //     path: '*',

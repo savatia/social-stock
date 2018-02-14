@@ -2,6 +2,7 @@ import React from 'react'
 import TimeSeriesScatterChart from 'src/components/Charts/TimeSeriesScatterChart'
 import moment from 'moment'
 import Tweet from 'src/components/Tweet'
+import HighChartScatter from 'src/components/Charts/HighChartScatter'
 
 import {
     createRefetchContainer,
@@ -32,15 +33,17 @@ class Sentiments extends React.Component {
 
     render() {
         const chartData = this.props.company.sentiments.edges.map((stock) => {
-            return {
-                sentiment: stock.node.retweetSentiment,
-                volume: stock.node.retweetVolume,
-                time: new Date(stock.node.date).getTime(),
-            }
+            return [
+
+                new Date(stock.node.date).getTime(),
+                stock.node.retweetSentiment,
+                stock.node.retweetVolume,
+            ]
         });
         return (
             <div>
-                <TimeSeriesScatterChart onDotClick={this.handleDotClick} chartData={chartData}/>
+                <HighChartScatter onDotClick={this.handleDotClick} name={this.props.company.symbol}
+                                  title={`Sentiments for ${this.props.company.name}`} chartData={chartData}/>
                 <hr/>
                 <h3>Tweets for { moment(this.state.searchDate).format('MMMM Do YYYY') }:</h3>
                 <div className="timeline">
@@ -49,17 +52,16 @@ class Sentiments extends React.Component {
                     </div>
                 </div>
                 <br/>
-                {this.state.loadingTweets ? <tr>loading...</tr> : this.state.tweets.map((tweet) => <Tweet
+                {this.state.loadingTweets ? <span>loading...</span> : this.state.tweets.map((tweet) => <Tweet
                         key={tweet.id} tweet={tweet}/>)}
             </div>
         )
     }
 
     handleDotClick = (data) => {
-        this.setState({searchDate: moment(data.time).format('Y-M-D'), loadingTweets: true})
-        console.log(data);
+        this.setState({searchDate: moment(data).format('Y-M-D'), loadingTweets: true})
         this.props.relay.refetch(
-            {symbol: this.props.company.symbol, date: moment(data.time).format('Y-M-D')},  // Our refetchQuery needs to know the `itemID`
+            {symbol: this.props.company.symbol, date: moment(data).format('Y-M-D')},  // Our refetchQuery needs to know the `itemID`
             null,  // We can use the refetchVariables as renderVariables
             (props) => {
                 console.log(props)
