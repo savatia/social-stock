@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 import pandas as pd
 import django
 
-from ...models import Sentiment, Company
+from ...models import Stock, Company
 
 
 class Command(BaseCommand):
@@ -14,25 +14,22 @@ class Command(BaseCommand):
 		parser.add_argument('--file')
 		parser.add_argument('--security')
 
-	def get_sentiments(self, file_path, security):
+	def get_predictions(self, file_path, security):
 		company = Company.objects.get(symbol=security)
-		sentiments_df = pd.read_csv(file_path)
-		for index, item in sentiments_df.iterrows():
+		predictions_df = pd.read_csv(file_path)
+		for index, item in predictions_df.iterrows():
 			try:
-				Sentiment.objects.update_or_create(
+				Stock.objects.update_or_create(
 					company=company,
 					date=item.Date,
 					defaults={
-						"tweet_sentiment": item.TweetSentiment,
-						"tweet_volume": item.TweetVolume,
-						"retweet_volume": item.RTVolume,
-						"retweet_sentiment": item.RTSentiment,
-						"favorite_sentiment": item.LikeSentiment,
-						"favorite_volume": item.LikeVolume
+						"moving_average": item.MA,
+						"prediction": item.Prediction
 					}
 
 				)
-			except django.db.utils.IntegrityError:
+			except django.db.utils.IntegrityError as ie:
+				print(str(ie))
 				pass
 
 	def handle(self, *args, **options):
@@ -40,4 +37,4 @@ class Command(BaseCommand):
 		security = options['security']
 		print(file_path)
 		print(security)
-		self.get_sentiments(file_path, security)
+		self.get_predictions(file_path, security)

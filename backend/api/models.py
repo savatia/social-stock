@@ -30,6 +30,7 @@ class Stock(models.Model):
 	adj_close = models.DecimalField( max_digits=15, decimal_places=10)
 	prediction = models.DecimalField(max_digits=15, decimal_places=10, null=True)
 	volume = models.IntegerField()
+	moving_average = models.DecimalField(max_digits=15, decimal_places=10, null=True)
 
 	class Meta:
 		unique_together = (('company', 'date'),)

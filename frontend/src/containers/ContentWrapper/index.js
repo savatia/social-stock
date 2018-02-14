@@ -24,8 +24,7 @@ const ContentWrapper = () => (
                                     key={index}
                                     path={route.path}
                                     exact={route.exact}
-                                    component={ () => (route.name)}
-                                />
+                                    component={ () => (route.name)}/>
                             ))
                             }
                             </h3>
